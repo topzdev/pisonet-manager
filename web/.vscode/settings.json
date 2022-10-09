@@ -1,0 +1,7 @@
+{
+  "json.schemas": [],
+  "tailwindCSS.experimental.configFile": {
+    "themes/simple/tailwind.config.js": "themes/simple/**",
+    "themes/neon/tailwind.config.js": "themes/neon/**"
+  }
+}
