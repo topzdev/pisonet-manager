@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('shareholders', function (Blueprint $table) {
+        Schema::create('coins_out', function (Blueprint $table) {
             $table->id();
-            $table->string('username');
-            $table->string('firstname');
-            $table->string('lastname');
-            $table->string('email');
-            $table->string('password');
+            $table->string('title');
+            $table->text('description');
+            $table->timestamp('start_date');
+            $table->timestamp('end_date');
+            $table->softDeletes();
             $table->timestamps();
         });
     }
@@ -31,6 +31,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shareholders');
+        Schema::dropIfExists('coins_out');
     }
 };

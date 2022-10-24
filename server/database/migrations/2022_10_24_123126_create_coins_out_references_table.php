@@ -13,10 +13,10 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('shareholders_percentage', function (Blueprint $table) {
+        Schema::create('coins_out_references', function (Blueprint $table) {
             $table->id();
-            $table->float('share_percentage');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -27,6 +27,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shareholders_percentage');
+        Schema::dropIfExists('coins_out_references');
     }
 };

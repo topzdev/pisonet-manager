@@ -13,9 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('saving_fund', function (Blueprint $table) {
+        Schema::create('shareholders', function (Blueprint $table) {
             $table->id();
+            $table->string('username');
+            $table->string('firstname');
+            $table->string('lastname');
+            $table->string('email');
+            $table->string('password');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -26,6 +32,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('saving_fund');
+        Schema::dropIfExists('shareholders');
     }
 };

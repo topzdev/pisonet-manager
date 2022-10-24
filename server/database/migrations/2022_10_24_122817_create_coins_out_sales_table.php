@@ -13,13 +13,11 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('electricity_charge', function (Blueprint $table) {
+        Schema::create('coins_out_sales', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('start_date');
-            $table->timestamp('end_date');
-            $table->timestamp('kwh');
-            $table->timestamp('kwh_charge');
+            $table->integer('amount');
             $table->timestamps();
+            $table->softDeletes();
         });
     }
 
@@ -30,6 +28,6 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('electricity_charge');
+        Schema::dropIfExists('coins_out_sales');
     }
 };
