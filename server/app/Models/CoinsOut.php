@@ -17,4 +17,19 @@ class CoinsOut extends Model
         "start_date",
         "end_date"
     ];
+
+    public function shop()
+    {
+        return $this->belongsTo(Shop::class);
+    }
+
+    public function coinsOutSales()
+    {
+        return $this->hasOne(CoinsOutSales::class);
+    }
+
+    public function coinsOutReferences()
+    {
+        return $this->hasOne(CoinsOutReferences::class);
+    }
 }

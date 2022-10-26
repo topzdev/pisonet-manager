@@ -16,6 +16,14 @@ class Shareholders extends Model
         'firstname',
         'lastname',
         'email',
+    ];
+
+    protected $hidden = [
         'password'
     ];
+
+    public function shareholderPercentage()
+    {
+        return $this->hasOne(ShareholdersPercentage::class);
+    }
 }

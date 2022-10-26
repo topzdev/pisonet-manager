@@ -16,4 +16,14 @@ class Shop extends Model
         'description',
         'start_date'
     ];
+
+    public function coinsOut()
+    {
+        return $this->hasMany(CoinsOut::class);
+    }
+
+    public function shareholders()
+    {
+        return $this->hasMany(Shareholders::class);
+    }
 }
