@@ -27,6 +27,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('coins_out_references');
+        Schema::dropIfExists('coins_out_references', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

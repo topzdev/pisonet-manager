@@ -32,6 +32,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shareholders');
+        Schema::dropIfExists('shareholders', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

@@ -31,6 +31,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('electricity_charges');
+        Schema::dropIfExists('electricity_charges', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };

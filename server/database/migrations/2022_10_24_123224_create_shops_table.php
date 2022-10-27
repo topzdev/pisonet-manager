@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('name');
             $table->text('description');
             $table->timestamp('start_date');
+            $table->timestamps();
             $table->softDeletes();
         });
     }
@@ -29,6 +30,8 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shops');
+        Schema::dropIfExists('shops', function (Blueprint $table) {
+            $table->dropSoftDeletes();
+        });
     }
 };
