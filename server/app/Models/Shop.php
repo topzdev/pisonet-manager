@@ -26,4 +26,14 @@ class Shop extends Model
     {
         return $this->hasMany(Shareholders::class);
     }
+
+    public function savingFunds()
+    {
+        return $this->hasMany(SavingFund::class);
+    }
+
+    public function electricityCharges()
+    {
+        return $this->hasMany(ElectricityCharge::class);
+    }
 }

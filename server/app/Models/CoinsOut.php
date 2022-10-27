@@ -28,8 +28,13 @@ class CoinsOut extends Model
         return $this->hasOne(CoinsOutSales::class);
     }
 
-    public function coinsOutReferences()
+    public function savingFund()
     {
-        return $this->hasOne(CoinsOutReferences::class);
+        return $this->hasOne(SavingFund::class);
+    }
+
+    public function electricityCharge()
+    {
+        return $this->hasOne(ElectricityCharge::class);
     }
 }

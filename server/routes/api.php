@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CoinsOutController;
 use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
 
@@ -18,12 +19,20 @@ use Illuminate\Support\Facades\Route;
 //     return $request->user();
 // });
 
-Route::get('/shops', [ShopController::class, 'index']);
 
-Route::get('/shops/{shop}', [ShopController::class, 'show']);
+Route::controller(ShopController::class)->group(function () {
+	$routeName = '/shops';
 
-Route::post('/shops', [ShopController::class, 'store']);
+	Route::get("$routeName", "index");
+	Route::get("$routeName/{shop}", "show");
+	Route::post("$routeName", "store");
+	Route::put("$routeName/{shop}", "update");
+	Route::delete("$routeName/{shop}", "destroy");
+});
 
-Route::put('/shops/{shop}', [ShopController::class, 'update']);
 
-Route::delete('/shops/{shop}', [ShopController::class, 'destroy']);
+Route::controller(CoinsOutController::class)->group(function () {
+	$routeName = '/coins-out';
+
+	Route::get("$routeName/{id}", 'index');
+});
