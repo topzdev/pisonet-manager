@@ -13,11 +13,12 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('saving_fund', function (Blueprint $table) {
+        Schema::create('shop', function (Blueprint $table) {
             $table->id();
+            $table->string('name');
+            $table->text('description')->nullable();
+            $table->timestamp('start_date');
             $table->timestamps();
-            $table->float('percentage');
-            $table->text('description');
             $table->softDeletes();
         });
     }
@@ -29,7 +30,7 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('saving_fund', function (Blueprint $table) {
+        Schema::dropIfExists('shop', function (Blueprint $table) {
             $table->dropSoftDeletes();
         });
     }

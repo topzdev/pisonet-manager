@@ -19,21 +19,21 @@ class Shop extends Model
 
     public function coinsOut()
     {
-        return $this->hasMany(CoinsOut::class);
+        return $this->hasMany(CoinsOut::class, 'shop_id', 'id');
     }
 
     public function shareholders()
     {
-        return $this->hasMany(Shareholders::class);
+        return $this->hasMany(Shareholder::class, 'shop_id', 'id');
     }
 
     public function savingFunds()
     {
-        return $this->hasMany(SavingFund::class);
+        return $this->hasMany(SavingFund::class, 'shop_id', 'id');
     }
 
     public function electricityCharges()
     {
-        return $this->hasMany(ElectricityCharge::class);
+        return $this->hasMany(ElectricityCharge::class, 'shop_id', 'id');
     }
 }

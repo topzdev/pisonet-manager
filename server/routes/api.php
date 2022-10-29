@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\CoinsOutController;
+use App\Http\Controllers\ElectricityChargeController;
 use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
 
@@ -34,5 +35,21 @@ Route::controller(ShopController::class)->group(function () {
 Route::controller(CoinsOutController::class)->group(function () {
 	$routeName = '/coins-out';
 
-	Route::get("$routeName/{id}", 'index');
+	Route::get("$routeName/all/{shopId}", 'index');
+	Route::get("$routeName/{coinsOut}", 'show');
+	Route::post("$routeName/", 'store');
+	Route::put("$routeName/{coinsOut}", 'update');
+	Route::delete("$routeName/{coinsOut}", 'destroy');
+});
+
+
+Route::controller(ElectricityChargeController::class)->group(function() {
+    $routeName = '/electricity-charge';
+
+    Route::get("$routeName/all/{shopId}", 'index');
+    Route::get("$routeName/{electricityCharge}", 'show');
+    Route::post("$routeName/", 'store');
+    Route::put("$routeName/{electricityCharge}", 'update');
+    Route::delete("$routeName/{electricityCharge}", 'destroy');
+
 });

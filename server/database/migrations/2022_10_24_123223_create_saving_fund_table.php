@@ -13,13 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('shops', function (Blueprint $table) {
+        Schema::create('saving_fund', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->text('description');
-            $table->timestamp('start_date');
-            $table->timestamps();
+            $table->foreignId('shop_id')->constrained('shop')->onDelete('cascade');
+            $table->double('percentage',null, 2);
+            $table->text('description')->nullable();
             $table->softDeletes();
+            $table->timestamps();
         });
     }
 
@@ -30,8 +30,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shops', function (Blueprint $table) {
+        Schema::dropIfExists('saving_fund', function (Blueprint $table) {
             $table->dropSoftDeletes();
+            $table->dropForeign(['shop_id']);
         });
     }
 };

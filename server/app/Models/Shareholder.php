@@ -6,12 +6,20 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class CoinsOutSales extends Model
+class Shareholder extends Model
 {
     use HasFactory;
     use SoftDeletes;
 
     protected $fillable = [
-        'amount'
+        'username',
+        'firstname',
+        'lastname',
+        'percentage',
+        'email',
+    ];
+
+    protected $hidden = [
+        'password'
     ];
 }

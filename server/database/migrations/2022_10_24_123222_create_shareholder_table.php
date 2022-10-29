@@ -13,12 +13,15 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('electricity_charges', function (Blueprint $table) {
+        Schema::create('shareholder', function (Blueprint $table) {
             $table->id();
-            $table->timestamp('start_date');
-            $table->timestamp('end_date');
-            $table->float('kwh');
-            $table->float('kwh_charge');
+            $table->foreignId('shop_id')->constrained('shop')->onDelete('cascade');
+            $table->double('percentage', null, 2);
+            $table->string('username');
+            $table->string('firstname');
+            $table->string('lastname');
+            $table->string('email');
+            $table->string('password');
             $table->timestamps();
             $table->softDeletes();
         });
@@ -31,8 +34,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('electricity_charges', function (Blueprint $table) {
+        Schema::dropIfExists('shareholder', function (Blueprint $table) {
             $table->dropSoftDeletes();
+            $table->dropForeign(['shop_id']);
         });
     }
 };

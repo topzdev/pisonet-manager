@@ -16,7 +16,10 @@ return new class extends Migration
         Schema::create('coins_out', function (Blueprint $table) {
             $table->id();
             $table->string('title');
-            $table->text('description');
+            $table->foreignId('shop_id')->constrained('shop');
+            $table->foreignId('saving_fund_id')->nullable()->constrained('saving_fund')->onDelete('cascade');
+            $table->foreignId('electricity_charge_id')->nullable()->constrained('electricity_charge')->onDelete('cascade');
+            $table->text('description')->nullable();
             $table->timestamp('start_date');
             $table->timestamp('end_date');
             $table->softDeletes();
@@ -33,6 +36,7 @@ return new class extends Migration
     {
         Schema::dropIfExists('coins_out', function (Blueprint $table) {
             $table->dropSoftDeletes();
+            $table->dropForeign(["shop_id", "saving_fund_id", "electricity_charge_id"]);
         });
     }
 };

@@ -13,9 +13,13 @@ return new class extends Migration
      */
     public function up()
     {
-        Schema::create('shareholders_percentage', function (Blueprint $table) {
+        Schema::create('electricity_charge', function (Blueprint $table) {
             $table->id();
-            $table->float('share_percentage');
+            $table->timestamp('start_date');
+            $table->foreignId('shop_id')->constrained('shop')->onDelete('cascade');
+            $table->timestamp('end_date');
+            $table->double('kwh', null, 2 );
+            $table->double('kwh_charge', null, 2);
             $table->timestamps();
             $table->softDeletes();
         });
@@ -28,8 +32,9 @@ return new class extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('shareholders_percentage', function (Blueprint $table) {
+        Schema::dropIfExists('electricity_charge', function (Blueprint $table) {
             $table->dropSoftDeletes();
+            $table->dropForeign(['shop_id']);
         });
     }
 };

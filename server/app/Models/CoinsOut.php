@@ -20,21 +20,21 @@ class CoinsOut extends Model
 
     public function shop()
     {
-        return $this->belongsTo(Shop::class);
+        return $this->belongsTo(Shop::class, 'shop_id',  'id');
     }
 
     public function coinsOutSales()
     {
-        return $this->hasOne(CoinsOutSales::class);
+        return $this->hasMany(CoinsOutSale::class,'coins_out_id', 'id');
     }
 
     public function savingFund()
     {
-        return $this->hasOne(SavingFund::class);
+        return $this->hasOne(SavingFund::class, 'id', 'saving_fund_id');
     }
 
     public function electricityCharge()
     {
-        return $this->hasOne(ElectricityCharge::class);
+        return $this->hasOne(ElectricityCharge::class, 'id', 'electricity_charge_id');
     }
 }
