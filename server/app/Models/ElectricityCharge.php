@@ -11,10 +11,13 @@ class ElectricityCharge extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $table = 'electricity_charge';
+
     protected $fillable = [
         'start_date',
         'end_date',
         'kwh',
-        'khw_charge'
+        'kwh_charge',
+        "shop_id"
     ];
 }

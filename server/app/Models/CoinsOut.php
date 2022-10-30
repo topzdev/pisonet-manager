@@ -11,6 +11,8 @@ class CoinsOut extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $table = 'coins_out';
+
     protected $fillable = [
         "title",
         "description",

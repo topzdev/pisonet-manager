@@ -11,8 +11,11 @@ class SavingFund extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $table = 'saving_fund';
+
     protected $fillable = [
         'percentage',
-        'description'
+        'description',
+        "shop_id"
     ];
 }

@@ -11,6 +11,8 @@ class CoinsOutSale extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $table = 'coins_out_sale';
+
     protected $fillable = [
         'amount',
         'shareholder_percentage'

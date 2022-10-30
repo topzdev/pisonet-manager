@@ -11,6 +11,8 @@ class Shareholder extends Model
     use HasFactory;
     use SoftDeletes;
 
+    protected $table = 'shareholder';
+
     protected $fillable = [
         'username',
         'firstname',
