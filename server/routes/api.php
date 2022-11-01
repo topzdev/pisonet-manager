@@ -3,6 +3,7 @@
 use App\Http\Controllers\CoinsOutController;
 use App\Http\Controllers\ElectricityChargeController;
 use App\Http\Controllers\SavingFundController;
+use App\Http\Controllers\ShareholderController;
 use App\Http\Controllers\ShopController;
 use Illuminate\Support\Facades\Route;
 
@@ -63,5 +64,17 @@ Route::controller(SavingFundController::class)->group(function() {
     Route::get("$routeName/{id}", 'show');
     Route::post("$routeName/", 'store');
     Route::put("$routeName/{id}", 'update');
+    Route::delete("$routeName/{id}", 'destroy');
+});
+
+Route::controller(ShareholderController::class)->group(function() {
+    $routeName = '/shareholder';
+
+    Route::get("$routeName/all/{shopId}", 'index');
+    Route::get("$routeName/{id}", 'show');
+    Route::post("$routeName/", 'store');
+    Route::put("$routeName/{id}", 'update');
+    Route::put("$routeName/change-password/{id}", 'update');
+    Route::put("$routeName/change-email/{id}", 'update');
     Route::delete("$routeName/{id}", 'destroy');
 });

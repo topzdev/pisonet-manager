@@ -14,10 +14,22 @@ namespace App\Models{
 /**
  * App\Models\CoinsOut
  *
- * @property-read \App\Models\CoinsOutSale|null $coinsOutSales
+ * @property int $id
+ * @property string $title
+ * @property int $shop_id
+ * @property int|null $saving_fund_id
+ * @property int|null $electricity_charge_id
+ * @property string|null $description
+ * @property string $start_date
+ * @property string $end_date
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\CoinsOutSale[] $coinsOutSales
+ * @property-read int|null $coins_out_sales_count
  * @property-read \App\Models\ElectricityCharge|null $electricityCharge
  * @property-read \App\Models\SavingFund|null $savingFund
- * @property-read \App\Models\Shop|null $shop
+ * @property-read \App\Models\Shop $shop
  * @method static \Illuminate\Database\Eloquent\Builder|CoinsOut newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CoinsOut newQuery()
  * @method static \Illuminate\Database\Query\Builder|CoinsOut onlyTrashed()
@@ -33,10 +45,14 @@ namespace App\Models{
  * App\Models\CoinsOutSale
  *
  * @property int $id
- * @property int $amount
+ * @property float $amount
+ * @property int $shareholder_id
+ * @property float $shareholder_percentage
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property-read \App\Models\CoinsOut|null $coinsOut
+ * @property-read \App\Models\Shareholder|null $shareholder
  * @method static \Illuminate\Database\Eloquent\Builder|CoinsOutSale newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|CoinsOutSale newQuery()
  * @method static \Illuminate\Database\Query\Builder|CoinsOutSale onlyTrashed()
@@ -44,7 +60,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Query\Builder|CoinsOutSale withTrashed()
  * @method static \Illuminate\Database\Query\Builder|CoinsOutSale withoutTrashed()
  */
-	class CoinsOutSales extends \Eloquent {}
+	class CoinsOutSale extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -53,6 +69,7 @@ namespace App\Models{
  *
  * @property int $id
  * @property string $start_date
+ * @property int $shop_id
  * @property string $end_date
  * @property float $kwh
  * @property float $kwh_charge
@@ -73,6 +90,13 @@ namespace App\Models{
 /**
  * App\Models\SavingFund
  *
+ * @property int $id
+ * @property int $shop_id
+ * @property float $percentage
+ * @property string|null $description
+ * @property \Illuminate\Support\Carbon|null $deleted_at
+ * @property \Illuminate\Support\Carbon|null $created_at
+ * @property \Illuminate\Support\Carbon|null $updated_at
  * @method static \Illuminate\Database\Eloquent\Builder|SavingFund newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|SavingFund newQuery()
  * @method static \Illuminate\Database\Query\Builder|SavingFund onlyTrashed()
@@ -88,6 +112,8 @@ namespace App\Models{
  * App\Models\Shareholder
  *
  * @property int $id
+ * @property int $shop_id
+ * @property float $percentage
  * @property string $username
  * @property string $firstname
  * @property string $lastname
@@ -96,7 +122,6 @@ namespace App\Models{
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
  * @property \Illuminate\Support\Carbon|null $deleted_at
- * @property-read \App\Models\ShareholderPercentage|null $shareholderPercentage
  * @method static \Illuminate\Database\Eloquent\Builder|Shareholder newModelQuery()
  * @method static \Illuminate\Database\Eloquent\Builder|Shareholder newQuery()
  * @method static \Illuminate\Database\Query\Builder|Shareholder onlyTrashed()
@@ -104,21 +129,7 @@ namespace App\Models{
  * @method static \Illuminate\Database\Query\Builder|Shareholder withTrashed()
  * @method static \Illuminate\Database\Query\Builder|Shareholder withoutTrashed()
  */
-	class Shareholders extends \Eloquent {}
-}
-
-namespace App\Models{
-/**
- * App\Models\ShareholderPercentage
- *
- * @method static \Illuminate\Database\Eloquent\Builder|ShareholderPercentage newModelQuery()
- * @method static \Illuminate\Database\Eloquent\Builder|ShareholderPercentage newQuery()
- * @method static \Illuminate\Database\Query\Builder|ShareholderPercentage onlyTrashed()
- * @method static \Illuminate\Database\Eloquent\Builder|ShareholderPercentage query()
- * @method static \Illuminate\Database\Query\Builder|ShareholderPercentage withTrashed()
- * @method static \Illuminate\Database\Query\Builder|ShareholderPercentage withoutTrashed()
- */
-	class ShareholdersPercentage extends \Eloquent {}
+	class Shareholder extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -127,7 +138,7 @@ namespace App\Models{
  *
  * @property int $id
  * @property string $name
- * @property string $description
+ * @property string|null $description
  * @property string $start_date
  * @property \Illuminate\Support\Carbon|null $created_at
  * @property \Illuminate\Support\Carbon|null $updated_at
@@ -173,3 +184,4 @@ namespace App\Models{
  */
 	class User extends \Eloquent {}
 }
+

@@ -18,7 +18,9 @@ class Shareholder extends Model
         'firstname',
         'lastname',
         'percentage',
+        'password',
         'email',
+        'shop_id'
     ];
 
     protected $hidden = [
