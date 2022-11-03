@@ -20,7 +20,8 @@ class Shareholder extends Model
         'percentage',
         'password',
         'email',
-        'shop_id'
+        'shop_id',
+        "id"
     ];
 
     protected $hidden = [

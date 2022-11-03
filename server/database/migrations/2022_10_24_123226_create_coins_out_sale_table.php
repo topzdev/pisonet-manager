@@ -4,8 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-return new class extends Migration
-{
+return new class extends Migration {
     /**
      * Run the migrations.
      *
@@ -17,6 +16,7 @@ return new class extends Migration
             $table->id();
             $table->double('amount', null, 2);
             $table->foreignId('shareholder_id')->constrained('shareholder');
+            $table->foreignId('coins_out_id')->constrained('coins_out');
             $table->double('shareholder_percentage', null, 2);
             $table->timestamps();
             $table->softDeletes();
@@ -33,6 +33,7 @@ return new class extends Migration
         Schema::dropIfExists('coins_out_sale', function (Blueprint $table) {
             $table->dropSoftDeletes();
             $table->dropForeign(['shareholder_id']);
+            $table->dropForeign(['coins_out_id']);
         });
     }
 };

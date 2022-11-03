@@ -11,35 +11,28 @@ class CoinsOutController extends Controller
     public function index(Request $request, $shopId)
     {
 
-        return CoinsOut::where('shop_id', $shopId);
+        return CoinsOut::where('shop_id', '=', $shopId)->get();
     }
 
-    public function show(Request $request, $coinsOut)
+    public function show(Request $request, $id)
     {
-        return $coinsOut;
+        return CoinsOut::where('id', '=', $id)->with('coinsOutSales')->first();
     }
 
     public function store(Request $request)
     {
 
-
-        $formFields = $request->validate([
-            'title' => 'required',
-            'description' => 'nullable',
-            'start_date' => 'required',
-            'end_date' => 'required',
-            'saving_fund_id' => 'required',
-            'electricity_charge_id' => 'required'
+        $fields = $request->validate([
+            'shop_id' => 'required|exists:shop,id',
+            'saving_fund_id' => 'required|exists:saving_fund,id',
+            'electricity_charge_id' => 'required|exists:electricity_charge,id',
+            'title' => 'required|string',
+            'description' => 'nullable|string|max:250',
+            'start_date' => 'required|date',
+            'end_date' => 'required|date|after:start_date',
         ]);
 
-
-        return CoinsOut::create([
-            'title' => $formFields['title'],
-            'description' => $formFields['description'],
-            'start_date' => $formFields['start_date'],
-            'end_date' => $formFields['end_date'],
-            'saving_fund_id' => $formFields['saving_fund_id'],
-        ]);
+        return CoinsOut::create($fields);
     }
 
     public function update(Request $request, CoinsOut $coinsOut)

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Shareholder;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Hash;
+use function count;
 use function response;
 
 class ShareholderController extends Controller
@@ -31,7 +32,7 @@ class ShareholderController extends Controller
         $fields = $request->validate([
             "shop_id" => "required|exists:shop,id",
             "username" => "required|unique:shareholder,username",
-            "email" => 'required|email',
+            "email" => 'required|email|unique:shareholder,email',
             "firstname" => "required|string",
             "percentage" => "required|numeric",
             "lastname" => 'required|string',
@@ -98,7 +99,9 @@ class ShareholderController extends Controller
 
         if (!Hash::check($fields['password'], $hashedPassword)) {
             return response([
-                'password' => 'Password not matched'
+                "errors" => [
+                    'password' => 'Password not matched'
+                ]
             ], 400);
         }
 
@@ -118,13 +121,26 @@ class ShareholderController extends Controller
      * @param int $id
      * @return bool or \Illuminate\Http\Response
      */
-    public function changeEmailAddress(Request $request, $id)
+    public function changeEmail(Request $request, $id)
     {
         $fields = $request->validate([
             "email" => "required|email",
         ]);
 
         $shareholder = Shareholder::find($id)->first();
+
+        $isExists = Shareholder::where([
+            ['shop_id', '=', $shareholder['shop_id']],
+            ['email', '=', $fields['email']]
+        ])->count();
+
+        if ($isExists) {
+            return response([
+                'errors' => [
+                    "email" => "email already exist whithin shop"
+                ]
+            ], 402);
+        }
 
         return $shareholder->update($fields);
     }

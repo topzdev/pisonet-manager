@@ -17,17 +17,20 @@ class CoinsOut extends Model
         "title",
         "description",
         "start_date",
-        "end_date"
+        "end_date",
+        "shop_id",
+        "saving_fund_id",
+        "electricity_charge_id"
     ];
 
     public function shop()
     {
-        return $this->belongsTo(Shop::class, 'shop_id',  'id');
+        return $this->belongsTo(Shop::class, 'shop_id', 'id');
     }
 
     public function coinsOutSales()
     {
-        return $this->hasMany(CoinsOutSale::class,'coins_out_id', 'id');
+        return $this->hasMany(CoinsOutSale::class, 'coins_out_id', 'id');
     }
 
     public function savingFund()
