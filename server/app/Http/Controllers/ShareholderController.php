@@ -22,7 +22,7 @@ class ShareholderController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param \Illuminate\Http\Request $request
      * @return Shareholder
      */
     public function store(Request $request)
@@ -50,7 +50,7 @@ class ShareholderController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
+     * @param int $id
      * @return Shareholder
      */
     public function show($id)
@@ -61,8 +61,8 @@ class ShareholderController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
+     * @param \Illuminate\Http\Request $request
+     * @param int $id
      * @return bool
      */
     public function update(Request $request, $id)
@@ -81,7 +81,7 @@ class ShareholderController extends Controller
     /**
      * Update shareholder password
      *
-     * @param  int  $id
+     * @param int $id
      * @return bool or \Illuminate\Http\Response
      */
     public function changePassword(Request $request, $id)
@@ -96,7 +96,7 @@ class ShareholderController extends Controller
 
         $hashedPassword = $shareholder->password;
 
-        if(!Hash::check($fields['password'], $hashedPassword)) {
+        if (!Hash::check($fields['password'], $hashedPassword)) {
             return response([
                 'password' => 'Password not matched'
             ], 400);
@@ -115,7 +115,7 @@ class ShareholderController extends Controller
     /**
      * Update shareholder email address
      *
-     * @param  int  $id
+     * @param int $id
      * @return bool or \Illuminate\Http\Response
      */
     public function changeEmailAddress(Request $request, $id)
@@ -128,10 +128,11 @@ class ShareholderController extends Controller
 
         return $shareholder->update($fields);
     }
+
     /**
      * Remove the specified resource from storage.
      *
-     * @param  int  $id
+     * @param int $id
      * @return bool
      */
     public function destroy($id)
