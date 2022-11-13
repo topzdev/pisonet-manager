@@ -27,9 +27,7 @@
             <x-drawers.drawer></x-drawers.drawer>
         </aside>
 
-        <div class="container">
-            {{ $slot }}
-        </div>
+        {{ $slot }}
     </main>
 
 </body>

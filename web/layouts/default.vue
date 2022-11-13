@@ -1,13 +1,14 @@
 <template>
-  <NuxtLayout>
-    <NuxtPage/>
-  </NuxtLayout>
+		<div>
+			Default
+			<slot/>
+		</div>
 </template>
-  
+	
 <script setup lang='ts'>
- 
+	
 </script>
-  
+	
 <style>
-  
+	
 </style>
