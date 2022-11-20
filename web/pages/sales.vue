@@ -3,62 +3,25 @@
     <v-toolbar border color="transparent">
       <v-toolbar-title>Sales</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn color="primary">Add Coins Out</v-btn>
+      <v-btn color="primary" to="/sales/create">Add Coins Out</v-btn>
     </v-toolbar>
     <v-container fluid>
-      <v-card flat width="600" class="mx-auto">
-        <v-row>
-          <v-col> </v-col>
-        </v-row>
-      </v-card>
+      <v-row>
+        <v-col cols="8" class="mx-auto">
+          <v-row>
+            <v-col cols="12" v-for="item in coinsOut" :key="item.id">
+              <cards-coins-out-card :coins-out="item" />
+            </v-col>
+          </v-row>
+        </v-col>
+      </v-row>
     </v-container>
+    <NuxtPage />
   </div>
 </template>
 
 <script setup lang="ts">
-type Shareholder = {
-  username: string;
-  firstname: string;
-  lastname: string;
-  initials: string;
-  color: string;
-  percentage: number;
-};
-
-type ElectricityCharge = {
-  start_date: string;
-  end_date: string;
-  kwh: number;
-  kwh_charge: number;
-};
-
-type SavingFund = {
-  description: string;
-  created_date: string;
-  percentage: number;
-};
-
-type CoinsOutSale = {
-  shareholder: 1;
-  shareholder_percentage: 1;
-  amount: number;
-};
-
-type CoinsOut = {
-  id: number;
-  shop_id: number;
-  saving_fund_id: number;
-  electricity_charge_id: number;
-  title: string;
-  description: string;
-  start_date: string;
-  end_date: string;
-  status: string;
-  shareholders?: Shareholder[];
-  electricity_charge?: ElectricityCharge;
-  saving_fund?: SavingFund;
-  sales?: CoinsOutSale[];
-};
+import { CoinsOut } from "~~/types/CoinsOut";
 
 const coinsOut = reactive<CoinsOut[]>([
   {
@@ -73,8 +36,16 @@ const coinsOut = reactive<CoinsOut[]>([
     status: "completed",
     sales: null,
 
+    computation: {
+      saving_funds: 520,
+      total_sales: 5225,
+      total_deduction: 1102,
+      final_sales: 3552,
+    },
+
     shareholders: [
       {
+        id: 1,
         username: "topzdev",
         firstname: "Christopher",
         lastname: "Lugod",
@@ -83,6 +54,7 @@ const coinsOut = reactive<CoinsOut[]>([
         percentage: 60,
       },
       {
+        id: 2,
         username: "christian",
         firstname: "Christian",
         lastname: "Lugod",
@@ -114,9 +86,13 @@ const coinsOut = reactive<CoinsOut[]>([
     description: "Hello this is description",
     start_date: "11/23/2022",
     end_date: "12/5/2022",
-    status: "pending",
+    status: "ongoing",
+
+    computation: null,
+
     shareholders: [
       {
+        id: 1,
         username: "topzdev",
         firstname: "Christopher",
         lastname: "Lugod",
@@ -125,11 +101,30 @@ const coinsOut = reactive<CoinsOut[]>([
         percentage: 60,
       },
       {
+        id: 2,
         username: "christian",
         firstname: "Christian",
         lastname: "Lugod",
         initials: "CL",
         color: "red",
+        percentage: 60,
+      },
+      {
+        id: 3,
+        username: "christian",
+        firstname: "Sebastian",
+        lastname: "Lugod",
+        initials: "SL",
+        color: "purple",
+        percentage: 60,
+      },
+      {
+        id: 4,
+        username: "christian",
+        firstname: "Angelo",
+        lastname: "Lugod",
+        initials: "AL",
+        color: "blue",
         percentage: 60,
       },
     ],

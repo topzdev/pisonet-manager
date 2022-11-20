@@ -9,11 +9,12 @@
   },
   "devDependencies": {
     "@mdi/font": "^7.0.96",
-    "nuxt": "3.0.0-rc.11"
+    "nuxt": "3.0.0"
   },
   "dependencies": {
+    "dayjs": "^1.11.6",
     "mdi": "^2.2.43",
     "sass": "^1.55.0",
-    "vuetify": "^3.0.0-beta.13"
+    "vuetify": "^3.0.0"
   }
 }

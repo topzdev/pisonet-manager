@@ -1,13 +1,11 @@
 <template>
-  <NuxtLayout>
-    <NuxtPage/>
+  <NuxtLayout :name="layout">
+    <NuxtPage />
   </NuxtLayout>
 </template>
-  
-<script setup lang='ts'>
- 
+
+<script setup lang="ts">
+const layout = "admin";
 </script>
-  
-<style>
-  
-</style>
+
+<style></style>
