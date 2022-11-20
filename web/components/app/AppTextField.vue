@@ -1,9 +1,11 @@
 <template>
   <v-text-field
+    :type="type"
     :label="label"
     :hide-details="hideDetails"
     color="primary"
     v-model="value"
+    :density="density"
   ></v-text-field>
 </template>
 

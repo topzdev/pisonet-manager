@@ -1,6 +1,9 @@
-import { PropType } from "nuxt/dist/app/compat/capi";
+import { Prop, PropType } from "nuxt/dist/app/compat/capi";
 
 export const inputProps = {
+  type: {
+    default: "text",
+  },
   label: {
     required: true,
     type: String,
@@ -16,11 +19,15 @@ export const inputProps = {
     >,
   },
   modelValue: {
-    type: [String, Number] as PropType<any>,
+    type: [String, Number, Boolean, Array] as PropType<any>,
   },
   hideDetails: {
     default: "auto",
     type: [String, Boolean] as PropType<boolean | "auto">,
+  },
+  density: {
+    default: "defualt",
+    type: String as PropType<any>,
   },
 };
 

@@ -3,25 +3,32 @@
     <v-toolbar border color="transparent">
       <v-toolbar-title>Sales</v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn color="primary" to="/sales/create">Add Coins Out</v-btn>
+      <v-btn color="primary" @click="modals.createCoinsOut = true">
+        Add Coins Out
+      </v-btn>
     </v-toolbar>
     <v-container fluid>
       <v-row>
         <v-col cols="8" class="mx-auto">
           <v-row>
             <v-col cols="12" v-for="item in coinsOut" :key="item.id">
-              <cards-coins-out-card :coins-out="item" />
+              <CardsCoinsOutCard :coins-out="item" />
             </v-col>
           </v-row>
         </v-col>
       </v-row>
     </v-container>
-    <NuxtPage />
+    <CreateCoinsOutModal v-model="modals.createCoinsOut" />
   </div>
 </template>
 
 <script setup lang="ts">
 import { CoinsOut } from "~~/types/CoinsOut";
+import CreateCoinsOutModal from "@/components/dialogs/CoinsOut/Main.vue";
+
+const modals = reactive({
+  createCoinsOut: false,
+});
 
 const coinsOut = reactive<CoinsOut[]>([
   {
@@ -98,7 +105,7 @@ const coinsOut = reactive<CoinsOut[]>([
         lastname: "Lugod",
         initials: "CL",
         color: "green",
-        percentage: 60,
+        percentage: 25,
       },
       {
         id: 2,
@@ -107,7 +114,7 @@ const coinsOut = reactive<CoinsOut[]>([
         lastname: "Lugod",
         initials: "CL",
         color: "red",
-        percentage: 60,
+        percentage: 25,
       },
       {
         id: 3,
@@ -116,7 +123,7 @@ const coinsOut = reactive<CoinsOut[]>([
         lastname: "Lugod",
         initials: "SL",
         color: "purple",
-        percentage: 60,
+        percentage: 25,
       },
       {
         id: 4,
@@ -125,7 +132,7 @@ const coinsOut = reactive<CoinsOut[]>([
         lastname: "Lugod",
         initials: "AL",
         color: "blue",
-        percentage: 60,
+        percentage: 25,
       },
     ],
 

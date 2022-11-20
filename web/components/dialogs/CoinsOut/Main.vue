@@ -23,10 +23,6 @@
           >Next</v-btn
         >
       </v-card-actions>
-
-      <pre>
-          {{ data }}
-      </pre>
     </v-card>
   </v-dialog>
 </template>
@@ -36,6 +32,24 @@ import CoinsOutPreferences from "@/components/dialogs/CoinsOut/Preferences.vue";
 import CoinsOutSelectDates from "@/components/dialogs/CoinsOut/SelectDates.vue";
 import CoinsOutInformation from "@/components/dialogs/CoinsOut/Information.vue";
 import { pageRoutes } from "~~/configs/page-routes";
+import { PropType } from "nuxt/dist/app/compat/vue-demi";
+
+const emit = defineEmits(["update:modelValue"]);
+
+const props = defineProps({
+  modelValue: {
+    type: [Boolean] as PropType<any>,
+  },
+});
+
+const dialog = computed({
+  get() {
+    return props.modelValue;
+  },
+  set(value) {
+    emit("update:modelValue", value);
+  },
+});
 
 const data = reactive({
   dates: {
@@ -53,11 +67,6 @@ const data = reactive({
   },
 });
 
-definePageMeta({
-  layout: "admin",
-});
-
-const dialog = ref(true);
 const part = ref(1);
 const maxPart = 3;
 
@@ -70,11 +79,14 @@ const onPaginate = (type: "back" | "next") => {
   }
 
   if (part.value <= 0) {
-    router.push(pageRoutes.sales.to);
+    dialog.value = false;
+    part.value = 1;
   }
 
   if (part.value > maxPart) {
-    router.push(pageRoutes.sales.subpages.create.subpages.final.to);
+    dialog.value = false;
+    part.value = maxPart;
+    router.push(pageRoutes.sales.subpages.view(1).to);
   }
 };
 

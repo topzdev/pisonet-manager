@@ -3,9 +3,7 @@
     <v-card-title>
       {{ coinsOut.title }}
 
-      <v-chip class="text-capitalize" variant="flat" :color="status.color">{{
-        status.text
-      }}</v-chip>
+      <StatusChip :status="coinsOut.status" />
     </v-card-title>
     <v-card-text>
       <v-row class="mb-3" v-if="computation">
@@ -62,27 +60,11 @@
             <span>Shareholders</span>
           </p>
 
-          <div class="d-flex align-center text-high-emphasis">
-            <div class="mr-1">
-              <v-avatar
-                v-for="(item, index) in shareholders.itemToShow"
-                :color="item.color"
-                :key="index"
-                size="x-small"
-                class="ml-n3"
-                :title="item.title"
-              >
-                <span class="text-caption"> {{ item.text }}</span>
-              </v-avatar>
-            </div>
-
-            <span
-              class="d-inline-block text-truncate"
-              style="max-width: 150px"
-              >{{ shareholders.namesText }}</span
-            >
-            <span> </span>
-          </div>
+          <ShareholdersSummary
+            :shareholders="coinsOut.shareholders"
+            :max-to-show="2"
+            avatar-size="x-small"
+          />
         </v-col>
       </v-row>
     </v-card-text>
@@ -95,7 +77,10 @@
 <script setup lang="ts">
 import { PropType } from "vue";
 import { CoinsOut } from "~~/types/CoinsOut";
+import StatusChip from "@/components/chips/StatusChip.vue";
 import dayjs from "dayjs";
+import ShareholdersSummary from "../customs/ShareholdersSummary.vue";
+import moneyFormatter from "~~/utils/moneyFormatter";
 
 const props = defineProps({
   coinsOut: {
@@ -106,25 +91,6 @@ const props = defineProps({
 
 const coinsOut = props.coinsOut;
 
-const status = computed(() => {
-  let color = "";
-
-  switch (coinsOut.status) {
-    case "ongoing":
-      color = "warning";
-      break;
-
-    case "completed":
-      color = "success";
-      break;
-  }
-
-  return {
-    color,
-    text: coinsOut.status,
-  };
-});
-
 const datesFormated = computed(() => {
   return {
     start_date: dayjs(coinsOut.start_date).format("MM/DD/YYYY"),
@@ -132,55 +98,7 @@ const datesFormated = computed(() => {
   };
 });
 
-const moneyFormatter = () => {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "PHP",
-  });
-};
-
-const electricityInfo = computed(() => {
-  const totalCharge =
-    coinsOut.electricity_charge.kwh_charge * coinsOut.electricity_charge.kwh;
-
-  // TODO: fill this with real data
-  const installment = 4;
-
-  return {
-    toPay: moneyFormatter().format(totalCharge / installment),
-    month: dayjs(coinsOut.start_date).format("MMMM, YYYY"),
-    installment,
-    totalCharge: moneyFormatter().format(totalCharge),
-  };
-});
-
-const shareholders = computed(() => {
-  const maxToShow = 2;
-  const itemToShow = coinsOut.shareholders.splice(0, maxToShow).map((item) => ({
-    color: item.color,
-    text: item.initials,
-    title: item.firstname,
-  }));
-  const remainingItem = coinsOut.shareholders;
-  let namesText = itemToShow.map((item) => item.title).join(",");
-
-  const remainingLength = remainingItem.length;
-  if (remainingLength) {
-    namesText += " and " + remainingLength + " more";
-
-    itemToShow.push({
-      color: "primary",
-      text: "+" + remainingLength,
-      title: "and " + remainingItem.map((item) => item.firstname).join(","),
-    });
-  }
-
-  return {
-    itemToShow,
-    remainingItem,
-    namesText: namesText,
-  };
-});
+const electricityInfo = useElectricityInfo(coinsOut);
 
 const computation = computed(() => {
   const value = coinsOut.computation;

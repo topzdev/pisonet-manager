@@ -14,15 +14,15 @@ export const pageRoutes = {
           return {
             title: "Create Coins Out",
             to: subPath,
-
-            subpages: {
-              final: {
-                title: "Final",
-                to: `${subPath}/final`,
-              },
-            },
           };
         })(),
+
+        view: (id: number) => {
+          return {
+            title: "View Coins Out",
+            to: `${parentPath}/${id}`,
+          };
+        },
       },
     };
   })(),

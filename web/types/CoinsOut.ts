@@ -34,6 +34,8 @@ export type CoinsOutComputation = {
   total_deduction: number;
 };
 
+export type CoinsOutStatus = "ongoing" | "completed";
+
 export type CoinsOut = {
   id: number;
   shop_id: number;
@@ -43,10 +45,10 @@ export type CoinsOut = {
   description: string;
   start_date: string;
   end_date: string;
-  status: string;
-  shareholders?: Shareholder[];
-  electricity_charge?: ElectricityCharge;
-  saving_fund?: SavingFund;
-  sales?: CoinsOutSale[];
-  computation?: CoinsOutComputation;
+  status: CoinsOutStatus;
+  shareholders: Shareholder[];
+  electricity_charge: ElectricityCharge;
+  saving_fund: SavingFund;
+  sales?: CoinsOutSale[] | null;
+  computation?: CoinsOutComputation | null;
 };
