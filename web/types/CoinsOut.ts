@@ -52,3 +52,11 @@ export type CoinsOut = {
   sales?: CoinsOutSale[] | null;
   computation?: CoinsOutComputation | null;
 };
+
+export type ShareholderSale = Shareholder & {
+  electricity: number;
+  savingFunds: number;
+  totalDeductions: number;
+  totalPayout: number;
+  sales: number;
+};

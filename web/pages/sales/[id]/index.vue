@@ -11,20 +11,23 @@
           </v-col>
 
           <v-col cols="12" class="py-0">
-            <CoinsOutSalesTable :data="data" />
+            <CoinsOutSalesTable v-model="shareholderSales" :data="data" />
           </v-col>
         </v-row>
       </v-col>
-      <v-col lg="3">Sales</v-col>
+      <v-col lg="3">
+        <CoinsOutSummary :data="data" :shareholder-sales="shareholderSales" />
+      </v-col>
     </v-row>
   </v-container>
 </template>
 
 <script setup lang="ts">
 import { computed, reactive } from "vue";
-import { CoinsOut } from "~~/types/CoinsOut";
+import { CoinsOut, ShareholderSale } from "~~/types/CoinsOut";
 import CoinsOutInformation from "@/components/pages/sales/view/CoinsOutIInformation.vue";
 import CoinsOutSalesTable from "@/components/pages/sales/view/CoinsOutSalesTable.vue";
+import CoinsOutSummary from "~~/components/pages/sales/view/CoinsOutSummary.vue";
 
 const data = reactive<CoinsOut>({
   id: 2,
@@ -91,6 +94,20 @@ const data = reactive<CoinsOut>({
     percentage: 10,
   },
 });
+
+const shareholderSales = reactive<ShareholderSale[]>(
+  data.shareholders.map((item) => {
+    return {
+      text: `${item.firstname} ${item.lastname}`,
+      ...item,
+      sales: 0,
+      electricity: 0,
+      savingFunds: 0,
+      totalDeductions: 0,
+      totalPayout: 0,
+    };
+  })
+);
 </script>
 
 <style></style>
