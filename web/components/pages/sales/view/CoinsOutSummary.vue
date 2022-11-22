@@ -1,25 +1,38 @@
 <template>
-  <v-card class="py-5" elevation="1">
+  <v-card class="pt-5" elevation="1">
     <v-card-title>
-      <h2 class="text-h5 font-weight-bold mb-5">Summary</h2>
+      <h2 class="text-h4 font-weight-bold mb-3">Summary</h2>
     </v-card-title>
     <v-card-text>
       <v-table>
         <tr v-for="item in summaryItems">
           <td align="left">
-            <h3 class="text-medium-emphasis mb-1" :class="item.class">
+            <h2
+              class="text-medium-emphasis font-weight-regular mb-1"
+              :class="item.class"
+            >
               {{ item.text }}
-            </h3>
+            </h2>
           </td>
 
           <td align="right">
-            <h4 class="mb-1" :class="item.class">
+            <h2 class="mb-1" :class="item.class">
               {{ formatMoney(item.value) }}
-            </h4>
+            </h2>
           </td>
         </tr>
       </v-table>
     </v-card-text>
+
+    <v-card-actions>
+      <v-row>
+        <v-col cols="12">
+          <v-btn variant="elevated" color="primary" block size="large"
+            >Mark as Completed</v-btn
+          >
+        </v-col>
+      </v-row>
+    </v-card-actions>
   </v-card>
 </template>
 
@@ -73,22 +86,22 @@ const summaryItems = computed(() => {
     {
       text: "Sales",
       value: summary.value.totalSales,
-      class: "text-h6",
+      class: "",
     },
     {
       text: "Saving Fund",
       value: summary.value.totalSavingFund,
-      class: "text-h6",
+      class: "",
     },
     {
       text: "Electricity Fund",
       value: summary.value.totalElectricityFund,
-      class: "text-h6",
+      class: "",
     },
     {
       text: "Deduction",
       value: summary.value.totalDeduction,
-      class: "text-h6",
+      class: "",
     },
     {
       text: "Final Sales",

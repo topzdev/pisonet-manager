@@ -69,7 +69,11 @@
       </v-row>
     </v-card-text>
     <v-card-actions class="justify-end">
-      <v-btn color="primary">View</v-btn>
+      <v-btn
+        color="primary"
+        :to="pageRoutes.sales.subpages.view(coinsOut.id).to"
+        >View</v-btn
+      >
     </v-card-actions>
   </v-card>
 </template>
@@ -79,8 +83,9 @@ import { PropType } from "vue";
 import { CoinsOut } from "~~/types/CoinsOut";
 import StatusChip from "@/components/chips/StatusChip.vue";
 import dayjs from "dayjs";
-import ShareholdersSummary from "../customs/ShareholdersSummary.vue";
+import ShareholdersSummary from "../../../customs/ShareholdersSummary.vue";
 import moneyFormatter from "~~/utils/moneyFormatter";
+import { pageRoutes } from "~~/configs/page-routes";
 
 const props = defineProps({
   coinsOut: {

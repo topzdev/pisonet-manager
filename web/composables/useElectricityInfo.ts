@@ -1,4 +1,5 @@
 import dayjs from "dayjs";
+import { config } from "~~/configs";
 import { CoinsOut } from "~~/types/CoinsOut";
 
 export default function useElectricityInfo(
@@ -8,7 +9,7 @@ export default function useElectricityInfo(
     coinsOut.electricity_charge.kwh_charge * coinsOut.electricity_charge.kwh;
 
   // TODO: fill this with real data
-  const installment = 4;
+  const installment = config.electrictInstallment;
 
   return {
     toPay: moneyFormatter().format(totalCharge / installment),

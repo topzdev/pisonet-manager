@@ -26,7 +26,6 @@ export const inputProps = {
     type: [String, Boolean] as PropType<boolean | "auto">,
   },
   density: {
-    default: "defualt",
     type: String as PropType<any>,
   },
 };

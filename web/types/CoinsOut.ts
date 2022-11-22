@@ -6,6 +6,8 @@ export type Shareholder = {
   initials: string;
   color: string;
   percentage: number;
+  email?: string;
+  is_admin?: boolean;
 };
 
 export type ElectricityCharge = {

@@ -1,4 +1,7 @@
 <template>
+  <AppPageBar back :back-to="pageRoutes.sales.to">
+    <template v-slot:title> {{ data.title }} </template>
+  </AppPageBar>
   <v-container>
     <v-row>
       <v-col lg="9" class="px-0">
@@ -28,6 +31,7 @@ import { CoinsOut, ShareholderSale } from "~~/types/CoinsOut";
 import CoinsOutInformation from "@/components/pages/sales/view/CoinsOutIInformation.vue";
 import CoinsOutSalesTable from "@/components/pages/sales/view/CoinsOutSalesTable.vue";
 import CoinsOutSummary from "~~/components/pages/sales/view/CoinsOutSummary.vue";
+import { pageRoutes } from "~~/configs/page-routes";
 
 const data = reactive<CoinsOut>({
   id: 2,

@@ -1,30 +1,33 @@
 <template>
-  <div>
-    <v-toolbar border color="transparent">
-      <v-toolbar-title>Sales</v-toolbar-title>
-      <v-spacer></v-spacer>
+  <AppPageBar back>
+    <template v-slot:title> Sales </template>
+
+    <template v-slot:button>
       <v-btn color="primary" @click="modals.createCoinsOut = true">
         Add Coins Out
       </v-btn>
-    </v-toolbar>
-    <v-container fluid>
-      <v-row>
-        <v-col cols="8" class="mx-auto">
-          <v-row>
-            <v-col cols="12" v-for="item in coinsOut" :key="item.id">
-              <CardsCoinsOutCard :coins-out="item" />
-            </v-col>
-          </v-row>
-        </v-col>
-      </v-row>
-    </v-container>
-    <CreateCoinsOutModal v-model="modals.createCoinsOut" />
-  </div>
+    </template>
+  </AppPageBar>
+
+  <v-container fluid>
+    <v-row>
+      <v-col cols="8" class="mx-auto">
+        <v-row>
+          <v-col cols="12" v-for="item in coinsOut" :key="item.id">
+            <CoinsOutCard :coins-out="item" />
+          </v-col>
+        </v-row>
+      </v-col>
+    </v-row>
+  </v-container>
+  <CreateCoinsOutModal v-model="modals.createCoinsOut" />
 </template>
 
 <script setup lang="ts">
 import { CoinsOut } from "~~/types/CoinsOut";
 import CreateCoinsOutModal from "@/components/dialogs/CoinsOut/Main.vue";
+import { pageRoutes } from "~~/configs/page-routes";
+import CoinsOutCard from "~~/components/pages/sales/cards/CoinsOutCard.vue";
 
 const modals = reactive({
   createCoinsOut: false,

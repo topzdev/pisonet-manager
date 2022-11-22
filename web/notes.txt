@@ -1,0 +1,9 @@
+To Add on Tables
+
+
+###Shareholder
+- background
+
+
+###ElectricityCharge
+- installment??

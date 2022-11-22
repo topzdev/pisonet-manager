@@ -6,20 +6,21 @@
           <v-icon :icon="item.icon"></v-icon>
         </template>
 
-        <v-list-item-title v-text="item.name"></v-list-item-title>
+        <v-list-item-title v-text="item.title"></v-list-item-title>
       </v-list-item>
     </v-list>
   </v-navigation-drawer>
 </template>
 
 <script setup lang="ts">
+import { pageRoutes } from "~~/configs/page-routes";
+
 const props = defineProps(["modelValue"]);
 const emit = defineEmits(["update:modelValue"]);
-const items = ref([
-  { icon: "mdi-view-dashboard-outline", name: "Dashboard", to: "/dashboard" },
-  { icon: "mdi-chart-line", name: "Sales", to: "/sales" },
-  { icon: "mdi-cog-outline", name: "Settings", to: "/settings" },
-]);
+
+const { dashboard, sales, shareholders, settings } = pageRoutes;
+
+const items = ref([dashboard, sales, shareholders, settings]);
 
 const drawer = computed({
   get() {
