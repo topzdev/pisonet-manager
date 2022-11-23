@@ -6,6 +6,8 @@
     color="primary"
     v-model="value"
     :density="density"
+    :suffix="suffix"
+    @change="$emit('change', $event.target.value)"
   ></v-text-field>
 </template>
 
@@ -13,7 +15,7 @@
 import { PropType } from "vue";
 import { inputProps } from "@/configs/input-common";
 const props = defineProps(inputProps);
-const emit = defineEmits(["update:modelValue"]);
+const emit = defineEmits(["update:modelValue", "keypress"]);
 
 const value = computed({
   get() {

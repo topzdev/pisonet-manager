@@ -2,7 +2,9 @@
   <v-dialog width="500" v-model="dialog" persistent>
     <v-card>
       <v-card-title>Add Shareholder</v-card-title>
-      <Information v-if="part === 1" v-model="data" />
+
+      <SharePercentage v-if="part === 1" v-model="data" />
+      <Information v-if="part === 2" v-model="data" />
 
       <v-card-actions>
         <v-btn
@@ -27,6 +29,7 @@
 <script setup lang="ts">
 import { pageRoutes } from "~~/configs/page-routes";
 import Information from "./parts/Information.vue";
+import SharePercentage from "./parts/SharePercentage.vue";
 
 const router = useRouter();
 

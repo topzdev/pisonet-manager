@@ -28,6 +28,9 @@ export const inputProps = {
   density: {
     type: String as PropType<any>,
   },
+  suffix: {
+    type: String,
+  },
 };
 
 export const textareaProps = {
