@@ -31,6 +31,9 @@ export const inputProps = {
   suffix: {
     type: String,
   },
+  disabled: {
+    type: Boolean,
+  },
 };
 
 export const textareaProps = {

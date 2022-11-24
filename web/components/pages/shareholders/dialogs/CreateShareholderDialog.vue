@@ -19,6 +19,7 @@
           size="large"
           variant="elevated"
           @click="onPaginate('next')"
+          :disabled="disable"
           >Next</v-btn
         >
       </v-card-actions>
@@ -28,10 +29,22 @@
 
 <script setup lang="ts">
 import { pageRoutes } from "~~/configs/page-routes";
+import { useShareholderStore } from "~~/store/shareholder";
+import { CreateShareholder } from "~~/types/Shareholder";
 import Information from "./parts/Information.vue";
 import SharePercentage from "./parts/SharePercentage.vue";
+const shareholderStore = useShareholderStore();
+const totalShare = shareholderStore.maxShare;
+const maxShare = shareholderStore.shareInfo.total;
+const disable = ref(false);
 
 const router = useRouter();
+
+watchEffect(function () {
+  if (totalShare >= maxShare) {
+    disable.value = true;
+  }
+});
 
 const { part, dialog, onPaginate, closeLabel } = useDialogPagination({
   startPart: 1,
@@ -45,7 +58,8 @@ const { part, dialog, onPaginate, closeLabel } = useDialogPagination({
   open: true,
 });
 
-const data = reactive({
+const data = reactive<CreateShareholder>({
+  share: 0,
   firstname: "",
   lastname: "",
   email: "",

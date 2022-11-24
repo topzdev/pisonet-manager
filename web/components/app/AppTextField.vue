@@ -8,6 +8,7 @@
     :density="density"
     :suffix="suffix"
     @change="$emit('change', $event.target.value)"
+    :disabled="disabled"
   ></v-text-field>
 </template>
 
