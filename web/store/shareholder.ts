@@ -12,7 +12,7 @@ export const useShareholderStore = defineStore("shareholder", {
           lastname: "Lugod",
           initials: "CL",
           color: "green",
-          percentage: 25,
+          percentage: 15,
           email: "christianlugod05@gmail.com",
           is_admin: true,
         },

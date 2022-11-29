@@ -34,6 +34,14 @@ export const inputProps = {
   disabled: {
     type: Boolean,
   },
+  rules: {
+    type: Array as PropType<any>,
+  },
+  name: {
+    type: String,
+    required: true,
+    default: "",
+  },
 };
 
 export const textareaProps = {

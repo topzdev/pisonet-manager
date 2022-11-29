@@ -5,9 +5,9 @@
         <h3 class="mx-auto text-medium-emphasis">Share Percentage</h3>
       </v-col>
 
-      <v-col v-if="error" class="pb-0" cols="12">
-        <v-alert type="warning" density="comfortable" variant="flat">
-          {{ error }}
+      <v-col v-if="alert.message" class="pb-0" cols="12">
+        <v-alert :type="alert.type" density="comfortable" variant="flat">
+          {{ alert.message }}
         </v-alert>
       </v-col>
 
@@ -15,10 +15,10 @@
         <AppTextField
           type="number"
           label="Share"
+          name="share"
           suffix="%"
-          @change="watchKeypress"
+          hide-details
           :disabled="disable"
-          v-model="data.share"
         />
       </v-col>
     </v-row>
@@ -35,10 +35,12 @@ const shareholderStore = useShareholderStore();
 const emit = defineEmits(["update:modelValue"]);
 const maxShare = shareholderStore.maxShare;
 const totalShare = shareholderStore.shareInfo.total;
-const error = ref("");
-
+const alert = reactive({
+  message: "",
+  type: "" as any,
+});
 const props = defineProps({
-  modelValue: {
+  data: {
     type: Object as PropType<CreateShareholder>,
     default: {},
   },
@@ -48,25 +50,29 @@ const disable = computed(() => {
   return totalShare >= maxShare;
 });
 
-const data = computed({
-  get() {
-    return props.modelValue;
-  },
-  set(value) {
-    emit("update:modelValue", value);
-  },
-});
-
-const watchKeypress = (value: any) => {
-  console.log(value);
-  if (value >= totalShare) {
-    data.value.share = totalShare;
+watch(
+  () => props.data.share,
+  (newValue) => {
+    console.log("newVal: ", newValue);
+    if (newValue > maxShare - totalShare) {
+      alert.message = "Must not exceed to remaining share";
+      alert.type = "error";
+    } else if (!newValue) {
+      alert.message = "Share is required";
+      alert.type = "error";
+    } else {
+      alert.message = "";
+    }
   }
-};
+);
 
 watchEffect(function () {
-  if (disable) {
-    error.value = `Share partition reached ${maxShare}%, In order to add new shareholder you must decrease the other's shares`;
+  if (disable.value) {
+    alert.message = `Share partition reached ${maxShare}%, In order to add new shareholder you must decrease the other's shares`;
+    alert.type = "warning";
+  } else {
+    alert.message = "";
+    alert.type = "";
   }
 });
 </script>
