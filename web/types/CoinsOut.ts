@@ -1,14 +1,18 @@
+type DataTimestamp = {
+  created_at: string;
+  updated_at: string;
+  deleted_at: null;
+};
+
 export type Shareholder = {
   id: number;
+  shop_id: number;
+  percentage: number;
   username: string;
   firstname: string;
   lastname: string;
-  initials: string;
-  color: string;
-  percentage: number;
-  email?: string;
-  is_admin?: boolean;
-};
+  email: string;
+} & DataTimestamp;
 
 export type ElectricityCharge = {
   start_date: string;

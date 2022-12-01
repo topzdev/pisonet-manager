@@ -4,53 +4,7 @@ import { Shareholder } from "~~/types/CoinsOut";
 export const useShareholderStore = defineStore("shareholder", {
   state: () => {
     return {
-      list: [
-        {
-          id: 1,
-          username: "topzdev",
-          firstname: "Christopher",
-          lastname: "Lugod",
-          initials: "CL",
-          color: "green",
-          percentage: 15,
-          email: "christianlugod05@gmail.com",
-          is_admin: true,
-        },
-        {
-          id: 2,
-          username: "christian",
-          firstname: "Christian",
-          lastname: "Lugod",
-          initials: "CL",
-          color: "red",
-          percentage: 25,
-
-          email: "christianlugod05@gmail.com",
-          is_admin: false,
-        },
-        {
-          id: 3,
-          username: "christian",
-          firstname: "Charity",
-          lastname: "Lugod",
-          initials: "SL",
-          color: "purple",
-          percentage: 25,
-          email: "christianlugod05@gmail.com",
-          is_admin: false,
-        },
-        {
-          id: 4,
-          username: "christian",
-          firstname: "Cedric",
-          lastname: "Lugod",
-          initials: "AL",
-          color: "blue",
-          percentage: 25,
-          email: "christianlugod05@gmail.com",
-          is_admin: false,
-        },
-      ] as Shareholder[],
+      list: [] as Shareholder[],
 
       create: {
         share: 0,
@@ -75,6 +29,17 @@ export const useShareholderStore = defineStore("shareholder", {
         total,
         color: total === 100 ? "text-success" : "text-warning",
       };
+    },
+  },
+
+  actions: {
+    async getShareholder() {
+      const { $api } = useNuxtApp();
+      const { data } = await $api.shareholder.getAll();
+
+      if (data.value) {
+        this.list = data.value;
+      }
     },
   },
 });

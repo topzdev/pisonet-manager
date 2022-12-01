@@ -28,20 +28,21 @@
       </v-col>
     </v-row>
   </v-container>
+
   <NuxtPage />
 </template>
 
 <script setup lang="ts">
-import { Shareholder } from "~~/types/CoinsOut";
 import ShareholderCard from "~~/components/pages/shareholders/cards/ShareholderCard.vue";
 import { pageRoutes } from "~~/configs/page-routes";
-import { config } from "~~/configs";
 import { useShareholderStore } from "~~/store/shareholder";
 
 const shareholderStore = useShareholderStore();
 const maxShare = shareholderStore.maxShare;
 const shareholders = shareholderStore.list;
 const shareInfo = shareholderStore.shareInfo;
+
+await shareholderStore.getShareholder();
 </script>
 
 <style></style>

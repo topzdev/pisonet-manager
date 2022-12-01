@@ -1,6 +1,13 @@
 // https://v3.nuxtjs.org/api/configuration/nuxt.config
 export default defineNuxtConfig({
   ssr: false,
+
+  runtimeConfig: {
+    public: {
+      apiBaseUrl: "http://127.0.0.1:8000/api",
+    },
+  },
+
   app: {
     head: {
       charset: "utf-16",
