@@ -1,6 +1,7 @@
 <template>
   <v-card-text>
     <v-row>
+      {{ maxShare }} - {{ totalShare }}
       <v-col class="d-flex py-0" cols="12">
         <h3 class="mx-auto text-medium-emphasis">Share Percentage</h3>
       </v-col>
@@ -15,7 +16,7 @@
         <AppTextField
           type="number"
           label="Share"
-          name="share"
+          name="percentage"
           suffix="%"
           hide-details
           :disabled="disable"
@@ -26,15 +27,11 @@
 </template>
 
 <script setup lang="ts">
+import { storeToRefs } from "pinia";
 import { PropType, watch } from "vue";
 import { useShareholderStore } from "~~/store/shareholder";
 import { CreateShareholder } from "~~/types/Shareholder";
 
-const shareholderStore = useShareholderStore();
-
-const emit = defineEmits(["update:modelValue"]);
-const maxShare = shareholderStore.maxShare;
-const totalShare = shareholderStore.shareInfo.total;
 const alert = reactive({
   message: "",
   type: "" as any,
@@ -44,27 +41,37 @@ const props = defineProps({
     type: Object as PropType<CreateShareholder>,
     default: {},
   },
+
+  totalShare: {
+    type: Number,
+    default: 0,
+  },
+
+  maxShare: {
+    type: Number,
+    default: 0,
+  },
 });
+
+const totalShare = computed(() => props.totalShare);
+const maxShare = computed(() => props.maxShare);
+const percentage = computed(() => props.data.percentage);
 
 const disable = computed(() => {
-  return totalShare >= maxShare;
+  return totalShare.value >= maxShare.value;
 });
 
-watch(
-  () => props.data.share,
-  (newValue) => {
-    console.log("newVal: ", newValue);
-    if (newValue > maxShare - totalShare) {
-      alert.message = "Must not exceed to remaining share";
-      alert.type = "error";
-    } else if (!newValue) {
-      alert.message = "Share is required";
-      alert.type = "error";
-    } else {
-      alert.message = "";
-    }
+watch(percentage, (newValue) => {
+  if (newValue > maxShare.value - totalShare.value) {
+    alert.message = "Must not exceed to remaining share";
+    alert.type = "error";
+  } else if (!newValue) {
+    alert.message = "Share is required";
+    alert.type = "error";
+  } else {
+    alert.message = "";
   }
-);
+});
 
 watchEffect(function () {
   if (disable.value) {

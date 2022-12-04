@@ -1,18 +1,4 @@
-type DataTimestamp = {
-  created_at: string;
-  updated_at: string;
-  deleted_at: null;
-};
-
-export type Shareholder = {
-  id: number;
-  shop_id: number;
-  percentage: number;
-  username: string;
-  firstname: string;
-  lastname: string;
-  email: string;
-} & DataTimestamp;
+import { Shareholder } from "./Shareholder";
 
 export type ElectricityCharge = {
   start_date: string;

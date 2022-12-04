@@ -10,14 +10,18 @@
       <v-col cols="6">
         <AppTextField label="Lastname" name="lastname" />
       </v-col>
-      <v-col cols="12">
-        <AppTextField type="email" label="Email" name="email" />
+      <v-col cols="6">
+        <apptextfield type="email" label="email" name="email" />
       </v-col>
 
-      <v-col cols="12">
+      <v-col cols="6">
+        <apptextfield type="username" label="email" name="email" />
+      </v-col>
+
+      <v-col cols="6">
         <AppTextField label="Password" type="password" name="password" />
       </v-col>
-      <v-col cols="12">
+      <v-col cols="6">
         <AppTextField
           label="Confirm Password"
           type="password"

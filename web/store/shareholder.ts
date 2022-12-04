@@ -1,10 +1,11 @@
 import { config } from "~~/configs";
-import { Shareholder } from "~~/types/CoinsOut";
+import { Shareholder } from "~~/types/Shareholder";
+import { useUserStore } from "./user";
 
 export const useShareholderStore = defineStore("shareholder", {
   state: () => {
     return {
-      list: [] as Shareholder[],
+      list: null as Shareholder[] | null,
 
       create: {
         share: 0,
@@ -21,6 +22,8 @@ export const useShareholderStore = defineStore("shareholder", {
 
   getters: {
     shareInfo: (state) => {
+      if (!state.list) return null;
+
       const total = state.list.reduce((acc, cur) => {
         return acc + cur.percentage;
       }, 0);
@@ -29,17 +32,6 @@ export const useShareholderStore = defineStore("shareholder", {
         total,
         color: total === 100 ? "text-success" : "text-warning",
       };
-    },
-  },
-
-  actions: {
-    async getShareholder() {
-      const { $api } = useNuxtApp();
-      const { data } = await $api.shareholder.getAll();
-
-      if (data.value) {
-        this.list = data.value;
-      }
     },
   },
 });

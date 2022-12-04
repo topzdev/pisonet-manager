@@ -9,8 +9,8 @@ export default defineNuxtPlugin((nuxtApp) => {
   };
 
   const factories = {
-    index: new IndexApi(apiConfigs),
-    shareholder: new ShareholderApi(apiConfigs),
+    index: new IndexApi(apiConfigs, "index"),
+    shareholder: new ShareholderApi(apiConfigs, "shareholder"),
   };
 
   return {

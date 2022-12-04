@@ -1,18 +1,6 @@
-<template>
-  <v-app :theme="config.theme">
-    <AppBar
-      :theme="config.theme"
-      @change-theme="changeTheme"
-      @toggle-drawer="toggleDrawer"
-    />
-    <AppDrawer v-model="config.drawer" />
-    <v-main>
-      <slot />
-    </v-main>
-  </v-app>
-</template>
-
 <script setup>
+import SystemSnackbar from "~~/components/systems/SystemSnackbar.vue";
+
 const config = reactive({
   theme: "light",
   drawer: true,
@@ -28,3 +16,19 @@ function toggleDrawer() {
 </script>
 
 <style></style>
+
+<template>
+  <v-app :theme="config.theme">
+    <AppBar
+      :theme="config.theme"
+      @change-theme="changeTheme"
+      @toggle-drawer="toggleDrawer"
+    />
+    <AppDrawer v-model="config.drawer" />
+    <v-main>
+      <slot />
+    </v-main>
+
+    <SystemSnackbar />
+  </v-app>
+</template>

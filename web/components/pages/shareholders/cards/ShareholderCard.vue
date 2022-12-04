@@ -3,20 +3,20 @@
     <v-card-text>
       <v-row>
         <v-col class="d-flex align-center">
-          <v-avatar :color="data.color">
+          <v-avatar :color="data.color || 'grey'">
             <span> {{ data.initials }} </span>
           </v-avatar>
 
           <div>
-            <h3 class="ml-2 font-weight-regular">
+            <h3 class="ml-2 font-weight-regular text-capitalize">
               {{ data.firstname }} {{ data.lastname }}
 
-              <v-icon
+              <!-- <v-icon
                 v-if="data.is_admin"
                 size="small"
                 title="Administrator"
                 icon="mdi-shield-crown-outline"
-              ></v-icon>
+              ></v-icon> -->
             </h3>
 
             <p class="text-medium-emphasis ml-2">
