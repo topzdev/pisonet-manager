@@ -23,12 +23,17 @@ export const useGetShareholder = async () => {
 export const useCreateShareholder = async (data: CreateShareholder) => {
   const user = useUserStore();
   const { $api } = useNuxtApp();
+
+  console.log(data, user.shop_id);
+
   const response = await $api.shareholder.create({
     ...data,
     shop_id: user.shop_id,
   });
 
-  useGetShareholder();
+  if (!response.error.value) {
+    await useGetShareholder();
+  }
 
   return response;
 };

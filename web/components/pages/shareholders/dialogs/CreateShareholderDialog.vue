@@ -10,6 +10,7 @@ import { useForm } from "vee-validate";
 import { CreateShareholder } from "~~/types/Shareholder";
 import { storeToRefs } from "pinia";
 import { useSystemStore } from "~~/store/system";
+import { useCreateShareholder } from "~~/composables/services/shareholder";
 
 const router = useRouter();
 const systemStore = useSystemStore();
@@ -35,7 +36,7 @@ const maxValue = computed(() => {
 
 const validationSchema = [
   yup.object({
-    share: yup.number().required().max(maxValue.value).label("Share"),
+    percentage: yup.number().required().max(maxValue.value).label("Share"),
   }),
   yup.object({
     color: yup.string().required(),
@@ -44,9 +45,9 @@ const validationSchema = [
     firstname: yup.string().required().label("Firstname"),
     lastname: yup.string().required().label("Lastname"),
     email: yup.string().email().required().label("Email Address"),
-    password: yup.string().min(8).required().label("Password"),
-    username: yup.string().required().label("username"),
-    confirmPassword: yup
+    password: yup.string().min(8).max(124).required().label("Password"),
+    username: yup.string().required().min(6).max(255).label("username"),
+    password_confirmation: yup
       .string()
       .required()
       .oneOf([yup.ref("password")], "Passwords must match")
@@ -56,27 +57,28 @@ const validationSchema = [
 
 const currentSchema = computed(() => validationSchema[step.value - 1]);
 
-const { values, handleSubmit, setFieldValue } = useForm<CreateShareholder>({
-  validationSchema: currentSchema,
-  keepValuesOnUnmount: true,
-  initialValues: {
-    percentage: 0,
-    confirmPassword: "",
-    username: "",
-    email: "",
-    firstname: "",
-    lastname: "",
-    password: "",
-    color: "purple",
-  },
+const { values, handleSubmit, setFieldValue, setErrors } =
+  useForm<CreateShareholder>({
+    validationSchema: currentSchema,
+    keepValuesOnUnmount: true,
+    initialValues: {
+      percentage: maxValue.value,
+      password_confirmation: "",
+      username: "",
+      email: "",
+      firstname: "",
+      lastname: "",
+      password: "",
+      color: "purple",
+    },
+  });
+
+watch(maxValue, (newMaxValue) => {
+  setFieldValue("percentage", newMaxValue);
 });
 
-// watch(maxValue, (newMaxValue) => {
-//   setFieldValue("percentage", newMaxValue);
-// });
-
 const disable = computed(
-  () => totalShare.value >= maxShare.value && values.percentage < maxValue.value
+  () => totalShare.value >= maxShare.value || values.percentage > maxValue.value
 );
 
 const closeLabel = computed(() => {
@@ -87,18 +89,20 @@ const closeLabel = computed(() => {
   }
 });
 
+const closeDialog = () => {
+  dialog.value = false;
+  router.push(pageRoutes.shareholders.to);
+};
+
 const onPrev = () => {
   step.value--;
 
   if (step.value <= 0) {
-    dialog.value = false;
-    router.push(pageRoutes.shareholders.to);
+    closeDialog();
   }
 };
 
-const onSubmit = handleSubmit((values) => {
-  console.log(step);
-
+const onSubmit = handleSubmit(async (values) => {
   if (!isLastStep.value) {
     step.value++;
     return;
@@ -106,16 +110,32 @@ const onSubmit = handleSubmit((values) => {
 
   loading.value = true;
 
-  systemStore.showSnackbar({
-    color: "primary",
-    message: "Hello, World!",
-    show: true,
-    timeout: 10000,
-  });
+  try {
+    const { data, error } = await useCreateShareholder(values);
 
-  setTimeout(() => {
+    if (error.value && error.value.data && error.value.data.errors) {
+      systemStore.showSnackbar({
+        color: "error",
+        message: error.value.data.message,
+        show: true,
+        timeout: 5000,
+      });
+      return setErrors(error.value.data.errors as any);
+    }
+
+    closeDialog();
+
+    systemStore.showSnackbar({
+      color: "success",
+      message: "Shareholder Added",
+      show: true,
+      timeout: 5000,
+    });
+  } catch (error) {
+    console.log("Error", error);
+  } finally {
     loading.value = false;
-  }, 5000);
+  }
 });
 </script>
 

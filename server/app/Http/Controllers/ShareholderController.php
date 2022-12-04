@@ -31,11 +31,12 @@ class ShareholderController extends Controller
 
         $fields = $request->validate([
             "shop_id" => "required|exists:shop,id",
-            "username" => "required|unique:shareholder,username",
+            "username" => "required|string|max:255|unique:shareholder,username|alpha_dash",
             "email" => 'required|email|unique:shareholder,email',
             "firstname" => "required|string",
             "percentage" => "required|numeric",
             "lastname" => 'required|string',
+            "color" => 'required|string',
             "password" => 'required|string|min:6|max:124|alpha_num|required_with:password_confirmation',
             "password_confirmation" => 'same:password'
         ]);

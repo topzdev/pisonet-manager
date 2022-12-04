@@ -12,7 +12,7 @@ export type Shareholder = {
 
 export type CreateShareholder = {
   password: string;
-  confirmPassword: string;
+  password_confirmation: string;
 } & Pick<
   Shareholder,
   | "shop_id"

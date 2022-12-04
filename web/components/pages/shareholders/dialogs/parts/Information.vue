@@ -11,11 +11,11 @@
         <AppTextField label="Lastname" name="lastname" />
       </v-col>
       <v-col cols="6">
-        <apptextfield type="email" label="email" name="email" />
+        <AppTextField type="email" label="Email" name="email" />
       </v-col>
 
       <v-col cols="6">
-        <apptextfield type="username" label="email" name="email" />
+        <AppTextField label="Username" name="username" />
       </v-col>
 
       <v-col cols="6">
@@ -25,7 +25,7 @@
         <AppTextField
           label="Confirm Password"
           type="password"
-          name="confirmPassword"
+          name="password_confirmation"
         />
       </v-col>
     </v-row>

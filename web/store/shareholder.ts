@@ -6,16 +6,6 @@ export const useShareholderStore = defineStore("shareholder", {
   state: () => {
     return {
       list: null as Shareholder[] | null,
-
-      create: {
-        share: 0,
-        firstname: "",
-        lastname: "",
-        email: "",
-        password: "",
-        confirmPassword: "",
-      },
-
       maxShare: config.maxShareholderShares,
     };
   },

@@ -1,7 +1,6 @@
 <template>
   <v-card-text>
     <v-row>
-      {{ maxShare }} - {{ totalShare }}
       <v-col class="d-flex py-0" cols="12">
         <h3 class="mx-auto text-medium-emphasis">Share Percentage</h3>
       </v-col>
@@ -75,7 +74,7 @@ watch(percentage, (newValue) => {
 
 watchEffect(function () {
   if (disable.value) {
-    alert.message = `Share partition reached ${maxShare}%, In order to add new shareholder you must decrease the other's shares`;
+    alert.message = `Share partition reached ${maxShare.value}%, In order to add new shareholder you must decrease the other's shares`;
     alert.type = "warning";
   } else {
     alert.message = "";

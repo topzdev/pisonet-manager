@@ -1,5 +1,9 @@
 import { RuntimeConfig } from "node_modules/@nuxt/schema/dist/index";
-import { UseFetchEndpoint, UseFetchOptions } from "~~/types/NuxtTypes";
+import {
+  FetchError,
+  UseFetchEndpoint,
+  UseFetchOptions,
+} from "~~/types/NuxtTypes";
 
 export type ApiConfig = {
   config: RuntimeConfig;
@@ -8,6 +12,8 @@ export type ApiConfig = {
 export type ApiTypes = {
   index: typeof IndexApi;
 };
+
+type UseFetchError = FetchError<ApiError>;
 
 export class ManageApi {
   apiFullPath: string;
@@ -24,7 +30,7 @@ export class ManageApi {
     this.apiFullPath = `${this.config.public.apiBaseUrl}/${routeName}`;
   }
 
-  get<ReturnType = void, ErrorType = void>(
+  get<ReturnType = void, ErrorType = UseFetchError>(
     request: UseFetchEndpoint,
     opts?: UseFetchOptions
   ) {
@@ -37,7 +43,7 @@ export class ManageApi {
     });
   }
 
-  post<ReturnType = void, ErrorType = void>(
+  post<ReturnType = void, ErrorType = UseFetchError>(
     request: UseFetchEndpoint,
     opts?: UseFetchOptions
   ) {
@@ -50,7 +56,7 @@ export class ManageApi {
     });
   }
 
-  put<ReturnType = void, ErrorType = void>(
+  put<ReturnType = void, ErrorType = UseFetchError>(
     request: UseFetchEndpoint,
     opts?: UseFetchOptions
   ) {
@@ -63,7 +69,7 @@ export class ManageApi {
     });
   }
 
-  delete<ReturnType = void, ErrorType = void>(
+  delete<ReturnType = void, ErrorType = UseFetchError>(
     request: UseFetchEndpoint,
     opts?: UseFetchOptions
   ) {
