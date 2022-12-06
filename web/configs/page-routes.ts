@@ -56,6 +56,15 @@ export const pageRoutes = {
             to: subPath,
           };
         })(),
+
+        edit: (id: number) => {
+          const subPath = `${parentPath}/${id}`;
+
+          return {
+            title: "Shareholder",
+            to: subPath,
+          };
+        },
       },
     };
   })(),

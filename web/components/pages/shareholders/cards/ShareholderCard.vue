@@ -1,3 +1,20 @@
+<script setup lang="ts">
+import { PropType } from "vue";
+import { pageRoutes } from "~~/configs/page-routes";
+import { Shareholder } from "~~/types/Shareholder";
+
+const props = defineProps({
+  data: {
+    type: Object as PropType<Shareholder>,
+    default: {},
+  },
+});
+
+const toEdit = (id: number) => {
+  return pageRoutes.shareholders.subpages.edit(id).to;
+};
+</script>
+
 <template>
   <v-card>
     <v-card-text>
@@ -29,23 +46,13 @@
         <v-col cols="auto" class="ml-auto"> </v-col>
 
         <v-col cols="auto" class="ml-auto">
-          <v-btn variant="text" color="primary">Edit</v-btn>
+          <v-btn variant="text" color="primary" :to="toEdit(data.id)"
+            >Edit</v-btn
+          >
         </v-col>
       </v-row>
     </v-card-text>
   </v-card>
 </template>
-
-<script setup lang="ts">
-import { PropType } from "vue";
-import { Shareholder } from "~~/types/CoinsOut";
-
-const props = defineProps({
-  data: {
-    type: Object as PropType<Shareholder>,
-    default: {},
-  },
-});
-</script>
 
 <style></style>
